@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+	<header th:fragment="headerFragment">
+		<div class="h-100 d-flex justify-content-between align-items-center">
+			<!-- 로고 영역 -->
+			<div>
+				<a href="/post/post-list-view" class="display-5">MEMO 게시판</a>
+			</div>
+			<!--  로그인 영역 -->
+			<div th:if="${session.userId != null}">
+				<span th:text=" ${session.userName} + '님 안녕하세요'"></span>
+				<a href="/user/sign-out">로그아웃</a>
+			</div>
+			
+			<div th:unless="${session.userId != null}">
+				<a href="/user/sign-in-view">로그인</a>
+			</div>
+		</div>
+	</header>
+</html>
