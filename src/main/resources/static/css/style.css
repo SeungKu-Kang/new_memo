@@ -1,9 +1,73 @@
 @charset "UTF-8";
 
+#wrap {
+	background-color: #999;
+}
 header {
-    background-color: #5bda20;
+    background-color: #71b91f;
+    padding-top:10px;
+    padding-bottom:10px;
 }
 
 footer {
-    background-color: #5bda20;
+    background-color: #71b91f;
+    height: 150px;
+    
 }
+
+#copyright {
+	font-size:20px;
+	
+}
+
+section {
+	background-color: #999;
+}
+
+#signUpBox, #signInBox {
+	background-color: white;
+	width:550px;
+	height:400px;
+	margin: 0 auto;
+	padding: 30px;
+}
+
+#signUpLogo, #signInLogo {
+	font-size: 35px;
+	color: #71b91f;
+}
+
+#signUpBtn  {
+	background-color: #71b91f;
+	color:#000;
+	width:550px;
+	height:50px;
+}
+
+#signUpBtn:hover {
+     background-color: #5d971a;
+     transition: 0.7s;
+  }
+
+#id {
+	width:420px;	
+}
+
+#isDuplicatedBtn {
+	background-color: #71b91f;
+	color:#000;
+	width:100px;
+	height:38px;
+}
+
+#loginIdBox, #passwordBox {
+	height:100px;
+}
+
+#signInBtn {
+	background-color: #71b91f;
+	color:#000;
+	width:490px;
+}
+
+

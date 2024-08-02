@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/defaultLayout}">
+
+<section layout:fragment="content" class="content text-center">
+	<!-- 정보들을 적을 칸  -->
+	<div id="signInBox" class="rounded mt-5 mb-3 py-4">
+		<span id="signInLogo" class="font-weight-bold mb-5">MEMO</span>
+		<div class="my-5">
+			<div>
+				<input id="loginId" type="text" class="loginIdBox rounded-top w-100" placeholder="아이디를 입력하세요">
+			</div>
+			<div class="passwordBox">
+				<input id="password" type="text" class="rounded-bottom w-100" placeholder="비밀번호를 입력하세요">
+			</div>		
+		</div>
+		<button type="submit" id="signInBtn" class="btn font-weight-bold my-3">로그인</button>
+		<a href="sign-up-view" id="goToSignUp">회원가입</a>
+	</div>
+</section>
+
+</html>
