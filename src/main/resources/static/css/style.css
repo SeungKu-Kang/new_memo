@@ -68,6 +68,13 @@ section {
 	background-color: #71b91f;
 	color:#000;
 	width:490px;
+	font-size:20px;
+}
+
+#goToSignUp {
+	text-decoration-line:none;
+	color:black;
+	font-weight:bold;
 }
 
 
