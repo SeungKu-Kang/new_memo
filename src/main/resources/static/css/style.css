@@ -56,7 +56,7 @@ section {
 #isDuplicatedBtn {
 	background-color: #71b91f;
 	color:#000;
-	width:100px;
+	width:120px;
 	height:38px;
 }
 
@@ -71,9 +71,13 @@ section {
 	font-size:20px;
 }
 
+#signInBtn:hover {
+	 background-color: #5d971a;
+     transition: 0.7s;
+}
+
 #goToSignUp {
 	text-decoration-line:none;
-	color:black;
 	font-weight:bold;
 }
 

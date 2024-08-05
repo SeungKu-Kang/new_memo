@@ -5,20 +5,137 @@
 	layout:decorate="~{layout/defaultLayout}">
 
 <section layout:fragment="content" class="content text-center">
-	<!-- 정보들을 적을 칸  -->
-	<div id="signUpBox" class="rounded mt-5 mb-3 py-4">
-		<span id="signUpLogo" class="font-weight-bold">MEMO</span>
-		<div class="d-flex">
-			<input type="text" id="id" name="id" class="form-control mb-4" placeholder="아이디를 입력하세요.">
-			<button id="isDuplicatedBtn" class="btn font-weight-bold ml-2">중복확인</button>
+	<form id="signUpForm" method="post" action="/user/sign-up">
+		<!-- 정보들을 적을 칸  -->
+		<div id="signUpBox" class="rounded mt-5 mb-3 py-4">
+			<span id="signUpLogo" class="font-weight-bold">MEMO</span>
+				<div class="d-flex">
+					<input type="text" id="loginId" name="loginId" class="form-control mb-4" placeholder="아이디를 입력하세요.">
+					<button id="isDuplicatedBtn" class="btn font-weight-bold ml-2">중복확인</button>
+				</div>
+				<!-- 아이디 체크 결과 -->
+				<!-- d-none 클래스: display none (보이지 않게) -->
+				<div id="idCheckLength" class="small text-danger d-none">ID를 4자 이상 입력해주세요.</div>
+				<div id="idCheckDuplicated" class="small text-danger d-none">이미 사용중인 ID입니다.</div>
+				<div id="idCheckOk" class="small text-success d-none">사용 가능한 ID 입니다.</div>
+				
+				<input type="password" id="password" name="password" class="form-control mb-4" placeholder="비밀번호를 입력하세요.">
+				<input type="password" id="confirmPassword" class="form-control mb-4" placeholder="비밀번호를 확인하세요.">
+				<input type="text" id="name" name="name" class="form-control mb-4" placeholder="이름을 입력하세요.">
+				<input type="text" id="email" name="email" class="form-control mb-4" placeholder="이메일을 입력하세요.">
 		</div>
-		<input type="password" id="password" name="password" class="form-control mb-4" placeholder="비밀번호를 입력하세요.">
-		<input type="password" id="password" name="password" class="form-control mb-4" placeholder="비밀번호를 확인하세요.">
-		<input type="text" id="name" name="name" class="form-control mb-4" placeholder="이름을 입력하세요.">
-		<input type="text" id="email" name="email" class="form-control mb-4" placeholder="이메일을 입력하세요.">
-	</div>
-	<!-- 회원가입 버튼 -->
-	<button type="submit" id="signUpBtn" class="btn font-weight-bold mb-3">회원 가입 완료</button>
+		<!-- 회원가입 버튼 -->
+		<button type="submit" id="signUpBtn" class="btn font-weight-bold mb-3">회원 가입 완료</button>
+	</form>	
 </section>
 
+<th:block layout:fragment="script">
+	<script>
+		$(document).ready(function() {
+			$("#isDuplicatedBtn").on('click',function() {
+				// 문구 안보이게 초기화
+				$("#idCheckLength").addClass("d-none");
+				$("#idCheckDuplicated").addClass("d-none");
+				$("#idCheckOk").addClass("d-none");
+				//alert("중복확인");
+				
+				let loginId = $("#loginId").val().trim();
+				//alert(loginId);
+				
+				if (loginId.length < 4) {
+					$("#idCheckLength").removeClass("d-none");
+					return;
+				}
+				
+				// AJAX
+				$.ajax({
+					// request
+					url:"/user/is-duplicated-id"
+					, data:{"loginId":loginId}
+				
+					// response
+					, success:function(data) {
+						if (data.is_duplicated_id) {
+							$("#idCheckDuplicated").removeClass("d-none");
+						} else {
+							$("#idCheckOk").removeClass("d-none");
+						}
+					}
+					
+					, error:function(error) {
+						alert("중복확인에 실패했습니다.");
+					}
+				});
+			});
+			
+			// 회원가입
+			$("#signUpForm").on('submit',function(e) {
+				e.preventDefault();
+				
+				// alert("회원가입");
+				
+				// validation
+				let loginId = $("#loginId").val().trim();
+				let password = $("#password").val();
+				let confirmPassword = $("#confirmPassword").val();
+				let name = $("#name").val().trim();
+				let email= $("#email").val().trim();
+				
+				if (!loginId) {
+					alert("아이디를 입력하세요.");
+					return false;
+				}
+				
+				if (!password || !confirmPassword) {
+					alert("비밀번호를 입력하세요.");
+					return false;
+				}
+				
+				if (password != confirmPassword) {
+					alert("비밀번호가 일치하지 않습니다.");
+					return false;
+				}
+				
+				if (!name) {
+					alert("이름을 입력하세요.");
+					return false;
+				}
+				
+				if (!email) {
+					alert("이메일을 입력하세요.");
+					return false;
+				}
+				
+				// loginId 중복확인 후 사용 가능한지 확인
+				// #idCheckOk d-none이 있을 때 alert 띄우기
+				if ($("#idCheckOk").hasClass("d-none")) {
+					alert("아이디 중복확인을 해주세요.");
+					return false; // 서버에 넘어가지 못하게 하기
+				}
+				
+				// 서버 전송
+				// 1) submit 호출 => response가 화면(HTML)
+				$(this)[0].submit();
+				
+				// 2) AJAX 호출 -> response가 JSON
+				let url = $(this).attr("action");
+				console.log(url);
+				let params = $(this).serialize();
+				console.log(params);
+				
+				$.post(url, params)
+				.done(function(data) {
+					if (data.code == 200) {
+						alert("가입을 환영합니다. 로그인 해주세요.");
+						// 로그인 화면 이동
+						location.href = "/user/sign-in-view";
+					} else {
+						alert(data.error_message);
+					}
+				});
+			});
+		});
+	</script>
+	
+</th:block>
 </html>
