@@ -4,13 +4,13 @@
 	background-color: #999;
 }
 header {
-    background-color: #71b91f;
+    background-color:#91cf4b;
     padding-top:10px;
     padding-bottom:10px;
 }
 
 footer {
-    background-color: #71b91f;
+    background-color:#91cf4b;
     height: 150px;
     
 }
@@ -34,11 +34,11 @@ section {
 
 #signUpLogo, #signInLogo {
 	font-size: 35px;
-	color: #71b91f;
+	color:#91cf4b;
 }
 
 #signUpBtn  {
-	background-color: #71b91f;
+	background-color:#91cf4b;
 	color:#000;
 	width:550px;
 	height:50px;
@@ -54,7 +54,7 @@ section {
 }
 
 #isDuplicatedBtn {
-	background-color: #71b91f;
+	background-color:#91cf4b;
 	color:#000;
 	width:120px;
 	height:38px;
@@ -65,7 +65,7 @@ section {
 }
 
 #signInBtn {
-	background-color: #71b91f;
+	background-color:#91cf4b;
 	color:#000;
 	width:490px;
 	font-size:20px;
@@ -81,4 +81,15 @@ section {
 	font-weight:bold;
 }
 
+/* <post 부분 css> 기본적인 틀로 container는 고정임 */
+.container {
+	width: 900px;
+	background-color : #999;
+}
+
+.btn:active, .btn:focus {
+	outline:none !important;
+	box-shadow:none !important;
+	color: white;
+}
 

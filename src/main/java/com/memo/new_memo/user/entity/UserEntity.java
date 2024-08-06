@@ -44,5 +44,5 @@ public class UserEntity {
 	
 	@CreationTimestamp
 	@Column(name = "updatedAt")
-	private int updatedAt;
+	private LocalDateTime updatedAt;
 }

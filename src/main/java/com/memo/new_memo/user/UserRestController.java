@@ -24,7 +24,7 @@ public class UserRestController {
 	private UserBO userBO;
 	
 	// ID 중복확인 API
-	@RequestMapping("is-duplicated-id")
+	@RequestMapping("/is-duplicated-id")
 	public Map<String, Object> isDuplicatedId(
 			@RequestParam("loginId") String loginId) {
 		
