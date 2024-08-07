@@ -9,4 +9,20 @@
 		FROM
 			`post`
 	</select>
+	
+	<select id="selectPostByUserIdPostId" parameterType="map" resultType="com.memo.new_memo.post.domain.Post">
+		SELECT
+			`id`
+			, `userId`
+			, `title`
+			, `content`
+			, `imagePath`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`post`
+		WHERE
+			`userId` = #{userId}
+			AND `id` = #{postId}
+	</select>
 </mapper>

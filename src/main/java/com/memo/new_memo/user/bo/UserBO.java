@@ -16,6 +16,7 @@ public class UserBO {
 		return userRepository.findByLoginIdAndPassword(loginId,password);
 	}
 	
+	// id 중복확인할 때 쓰일 메소드
 	public UserEntity getUserEntityByLoginId(String loginId) {
 		return userRepository.findByLoginId(loginId);
 	}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/defaultLayout}">
+<section layout:fragment="content">
+
+<div class="container">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>글 번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성날짜</th>
+				<th>댓글 수</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="post : ${postList}">
+				<td th:text="${post.id}"></td>
+				<td><a th:href="|/post/post-detail-view?postId=${postId}|" th:text="${post.subject}"></a></td>
+				<td th:text="${post.userId}"></td>
+				<td th:text="${#temporals.format(post.createdAt, 'yyyy년 M월 d일 HH:mm:ss')}">2024-08-09</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</section>
+</html>
