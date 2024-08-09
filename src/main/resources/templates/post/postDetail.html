@@ -8,8 +8,8 @@
 	<div class="container">
 		<h1 class="font-weight-bold pt-3">MEMO 상세</h1>
 		
-		<input type="text" id="subject" th:value="{$post.subject}" class="form-control" placeholder="제목">
-		<textarea rows="13" id="content" th:text="{$post.content}" class="form-control" placeholder="내용을 입력하세요."></textarea><br>
+		<input type="text" id="subject" th:value="${post.subject}" class="form-control" placeholder="제목">
+		<textarea rows="13" id="content" th:text="${post.content}" class="form-control" placeholder="내용을 입력하세요."></textarea><br>
 		
 		<div class="text-right my-3">
 			<input type="file" id="file" accept=".jpg, .png, .gif">
@@ -18,11 +18,13 @@
 			<div>
 				<button id="postListBtn" class="btn btn-secondary">글 목록</button>
 			</div>
-			<div>
-				<button id="clearBtn" class="btn btn-secondary">본문 지우기</button>
-				<button id="saveBtn" class="btn btn-secondary">저장하기</button>
+			<div th:if="${post.userId == session.userId}">
+				<button id="clearBtn" class="btn btn-secondary">삭제하기</button>
+				<button id="saveBtn" class="btn btn-secondary">수정하기</button>
 			</div>
 		</div>
 	</div>
 </section>
+
+
 </html>

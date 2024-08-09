@@ -28,11 +28,29 @@ public class PostController {
 			 HttpSession session, Model model) {
 		 
 		 // 로그인 여부 확인 -> 상관없음
+		 // userId와 무관하게 모든 글 가져오기
 		 
 		 // DB 조회 - 글 목록 $ 이전, 다음 클릭
-		 List<Post> postList = postBO.getPostListByUserId(userId, prevParam, nextParam)
+		 List<Post> postList = postBO.getPostList(prevIdParam, nextIdParam);
+		 
+		 int prevId = 0;
+		 int nextId = 0;
+		 if (postList.isEmpty() == false) {
+			 prevId = postList.get(0).getId();
+			 nextId = postList.get(postList.size() - 1).getId();
+			 
+			 if (postBO.isPrevLastPage(prevId)) {
+				 prevId = 0;
+			 }
+			 
+			 if (postBO.isNextLastPage(nextId)) {
+				 nextId = 0;
+			 }
+		 }
 		 
 		 // 모델에 담기
+		 model.addAttribute("prevId",prevId);
+		 model.addAttribute("nextId",nextId);
 		 model.addAttribute("postList", postList);
 		 
 		 return "post/postList";

@@ -39,12 +39,13 @@
 				$("#subject").val("");
 				$("#content").val("");
 				$("#file").val("");
+				
 			});
 			
 			// 글 저장하기
 			$("#saveBtn").on('click', function() {
 				//alert("글쓰기");
-				let subject = $("#subject").val().trim;
+				let subject = $("#subject").val().trim();
 				let content = $("#content").val();
 				let fileName = $("#file").val();
 				
@@ -58,24 +59,54 @@
 					return;
 				}
 				
-				if (fileName) { // 파일이 지워지지 않음
-					alert("파일이 지워지지 않음");
+				if (fileName) {
+					// alert("파일이 있다.");
+					// C:\fakepath\gecko-8483282_960_720.png
 					let extension = fileName.split(".").pop().toLowerCase();
 					console.log(extension);
 					
-					if ($.inArray(extension, ["jpg","gif","png"]) == -1) {
-						alert("이미지파일만 업로드 할 수 있습니다.");
-						$("#file").val("") // 파일을 비운다.
+					if ($.inArray(extension, ["jpg", "gif", "png"]) == -1) {
+						alert("이미지 파일만 업로드할 수 있습니다.");
+						$("#file").val(""); // 파일을 비운다.
 						return;
 					}
-					
 				}
-				
-				
+					
 				console.log(subject);
 				console.log(content);
 				
 				// formData
+				let formData = new FormData();
+				
+				formData.append("subject", subject);
+				formData.append("content", content);
+				formData.append("file", $("#file")[0].files[0]);
+				
+				$.ajax ({
+					// request
+					type:"post"
+					, url :"/post/create"
+					, data:formData
+					, enctype:"multipart/form-data"
+					, processData : false
+					, contentType : false
+					
+					// response
+					, success:function(data) {
+						if (data.code == 200) {
+							alert("메모가 저장되었습니다");
+							
+							// 글 목록 화면으로 이동
+							location.href = "/post/post-list-view";
+						} else {
+							alert(data.error_message);
+						}
+					}	
+					, error:function(e) {
+						alert("글을 저장하는데 실패했습니다.");
+					}			
+				}); 
+				
 			});
 		});
 	</script>

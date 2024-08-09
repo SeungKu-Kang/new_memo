@@ -25,4 +25,71 @@
 			`userId` = #{userId}
 			AND `id` = #{postId}
 	</select>
+	
+<!-- 	<select id="selectPostList" resultType="map">
+		SELECT
+			*
+		FROM
+			`post`
+	</select> -->
+	
+	<select id="selectPostIdAsSort" parameterType="map" resultType="int">
+		SELECT
+			`id`
+		FROM
+			`post`
+		ORDER BY `id` ${sort}
+		LIMIT 1
+	</select>
+	
+	<insert id="insertPost" parameterType="map">
+		INSERT INTO `post`
+		(
+			`userId`
+			,`subject`
+			,`content`
+			,`imagePath`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{userId}
+			, #{subject}
+			, #{content}
+			, #{imagePath}
+			, NOW()
+			, NOW()
+		)
+	</insert>
+	
+	<select id="selectPostList" parameterType="map" resultType="com.memo.new_memo.post.domain.Post">
+		SELECT
+			`id`
+			,`userId`
+			,`subject`
+			,`content`
+			,`imagePath`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`post`
+		WHERE
+			
+			<if test="direction == 'next'">
+			<![CDATA[
+			`id` < #{standardId}
+			]]>
+			ORDER BY `id` DESC
+			</if>
+			<if test="direction == 'prev'">
+			<![CDATA[
+			AND `id` > #{standardId}
+			]]>	
+			</if>
+			<if test="direction == null">
+			ORDER BY `id` DESC
+			</if>
+		LIMIT ${limit}
+	</select>
 </mapper>

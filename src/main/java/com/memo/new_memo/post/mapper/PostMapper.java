@@ -16,6 +16,25 @@ public interface PostMapper {
 	public Post selectPostByUserIdPostId(
 			@Param("userId") int userId,
 			@Param("postId") int postId);
+	
+	// postListView에 뿌릴 모든 글
+	public List<Post> selectPostList(
+			@Param("prevIdParam") int prevIdParam,
+			@Param("nextIdParam") int nextIdParam);
+	
+	public int selectPostIdAsSort(
+			@Param("sort") String sort);
+	
+	public void insertPost(
+			@Param("userId") int userId, 
+			@Param("subject") String subject, 
+			@Param("content") String content, 
+			@Param("imagePath") String imagePath);
+	
+	public List<Post> selectPostList(
+			@Param("standardId") Integer standardId,
+			@Param("direction") String direction,
+			@Param("limit") int limit);
 }
 
 
