@@ -14,7 +14,7 @@
 		SELECT
 			`id`
 			, `userId`
-			, `title`
+			, `subject`
 			, `content`
 			, `imagePath`
 			, `createdAt`
@@ -22,8 +22,7 @@
 		FROM
 			`post`
 		WHERE
-			`userId` = #{userId}
-			AND `id` = #{postId}
+			`id` = #{postId}
 	</select>
 	
 <!-- 	<select id="selectPostList" resultType="map">
@@ -74,8 +73,7 @@
 			,`updatedAt`
 		FROM
 			`post`
-		WHERE
-			
+		<!-- WHERE
 			<if test="direction == 'next'">
 			<![CDATA[
 			`id` < #{standardId}
@@ -89,7 +87,20 @@
 			</if>
 			<if test="direction == null">
 			ORDER BY `id` DESC
-			</if>
-		LIMIT ${limit}
+			</if> 
+		LIMIT ${limit}-->
 	</select>
+	
+	<update id="updatePostByPostId" parameterType="map">
+		UPDATE `post`
+		SET
+			`subject` = #{subject}
+			, `content` = #{content}
+			<if test="imagePath != null">
+			, `imagePath` = #{imagePath}
+			</if>
+			, `updatedAt` = NOW()
+		WHERE
+			`id` = #{postId}
+	</update>
 </mapper>
