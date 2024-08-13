@@ -26,6 +26,19 @@
 			</tr>
 		</tbody>
 	</table>
+	<button class="btn btn-info" id="postCreateBtn">글 작성하기</button><br><br>
 </div>
 </section>
+
+<th:block layout:fragment="script">
+	<script>
+		$(document).ready(function() {
+			// 글 작성하기 버튼
+			$("#postCreateBtn").on('click', function() {
+				//alert("글 작성버튼");
+				location.href="post-create-view";
+			});
+		});
+	</script>
+</th:block>
 </html>
