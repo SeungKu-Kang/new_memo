@@ -29,9 +29,17 @@ public class PostBO {
 	// 글 단건 가져오기
 	// input : userId, postId
 	// output: Post or null
-	public Post getPostByUserIdPostId(int userId, int postId) {
-		return postMapper.selectPostByUserIdPostId(userId, postId);
+	/*
+	 * public Post getPostByUserIdPostId(int userId, int postId) { return
+	 * postMapper.selectPostByUserIdPostId(userId, postId); }
+	 */
+	
+	// 위에꺼아니면 이거 둘중 하나 지울거
+	public Post getPostByPostId(int postId) {
+		return postMapper.selectPostByPostId(postId);
 	}
+	
+	
 	
 	// 글 목록 뿌리기
 	// input : userId, prevId, nextId
@@ -90,10 +98,12 @@ public class PostBO {
 			int postId, String subject, 
 			String content, MultipartFile file) {
 		
+		
+		//!!!! selectPostByUserIdPostId 대신에 UserId빼고 해보는 중
 		// 업데이트할 기존 글을 가져온다
 		// 이유 1) 이미지 교체 시 기존 글에 있던 imagePath 삭제하기 위함
 		// 이유 2) 업데이트 대상이 있는지 확인하기 위함
-		Post post = postMapper.selectPostByUserIdPostId(userId, postId);
+		Post post = postMapper.selectPostByPostId(postId);
 		// System.out.println(); => 사용해서는 안됨 : 각 사용자는 쓰레드인데 이 코드를 적게 되면 해당 쓰레드가 서버를 점유하게 되어 서버가 느려진다.
 		if (post == null) {
 			log.warn("[글 수정] post is null. userId:{}, postId:{}", userId, postId); // userId가 {}안에 들어가게 된다.
@@ -120,9 +130,11 @@ public class PostBO {
 		postMapper.updatePostByPostId(postId, subject, content, imagePath);
 	}
 	
+	
+	//!!!! selectPostByUserIdPostId 대신에 UserId빼고 해보는 중
 	public void deletePostByPostIdUserId(int postId, int userId) {
 		// 기존글 가져오기(이미지 존재시 삭제하기 위해)
-		Post post = postMapper.selectPostByUserIdPostId(userId, postId);
+		Post post = postMapper.selectPostByPostId(postId);
 		if (post == null) {
 			log.info("[글 삭제] post is null. postId:{}, userId:{}", postId, userId);
 			return;

@@ -10,7 +10,22 @@
 			`post`
 	</select>
 	
-	<select id="selectPostByUserIdPostId" parameterType="map" resultType="com.memo.new_memo.post.domain.Post">
+<!-- 이거랑 아래꺼 둘 중 하나 지울거임	<select id="selectPostByUserIdPostId" parameterType="map" resultType="com.memo.new_memo.post.domain.Post">
+		SELECT
+			`id`
+			, `userId`
+			, `subject`
+			, `content`
+			, `imagePath`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`post`
+		WHERE
+			`id` = #{postId}
+	</select> -->
+	
+	<select id="selectPostByPostId" parameterType="map" resultType="com.memo.new_memo.post.domain.Post">
 		SELECT
 			`id`
 			, `userId`

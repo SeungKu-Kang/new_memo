@@ -21,7 +21,7 @@
 				<td th:text="${post.id}"></td>
 				<td><a th:href="|/post/post-detail-view?postId=${post.id}|" th:text="${post.subject}" id="title"></a></td>
 				<td th:text="${session.loginId}"></td>
-				<td th:text="${#temporals.format(post.createdAt, 'yyyy년 M월 d일 HH:mm:ss')}">2024-08-09</td>
+				<td th:text="${#temporals.format(post.createdAt, 'yyyy년 M월 d일')}"></td>
 				<td></td>
 			</tr>
 		</tbody>
@@ -36,7 +36,13 @@
 			// 글 작성하기 버튼
 			$("#postCreateBtn").on('click', function() {
 				//alert("글 작성버튼");
-				location.href="post-create-view";
+				let userId = "${session.userId}";
+				if (!userId) {
+					location.href="post-create-view";					
+				} else {
+					alert("로그인을 한 후 이용가능합니다.");
+					location.href="user/sign-in-view";
+				}
 			});
 		});
 	</script>

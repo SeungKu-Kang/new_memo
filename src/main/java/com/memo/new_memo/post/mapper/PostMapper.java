@@ -13,8 +13,16 @@ public interface PostMapper {
 	public List<Map<String, Object>> selectPostListTest();
 	
 	// postDetail 가져오기
-	public Post selectPostByUserIdPostId(
-			@Param("userId") int userId,
+	/*
+	 * public Post selectPostByUserIdPostId(
+	 * 
+	 * @Param("userId") int userId,
+	 * 
+	 * @Param("postId") int postId);
+	 */
+	
+	// 위에꺼 이거 둘 중 하나는 지울거
+	public Post selectPostByPostId(
 			@Param("postId") int postId);
 	
 	// postListView에 뿌릴 모든 글

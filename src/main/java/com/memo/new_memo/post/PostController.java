@@ -66,8 +66,8 @@ public class PostController {
 			 Model model, HttpSession session) {
 		 
 		 // db 조회 - userId, postId
-		 int userId = (int)session.getAttribute("userId");
-		 Post post = postBO.getPostByUserIdPostId(userId, postId);
+		 //int userId = (int)session.getAttribute("userId");
+		 Post post = postBO.getPostByPostId(postId);
 		 
 		 // model에 담기
 		 model.addAttribute("post", post);

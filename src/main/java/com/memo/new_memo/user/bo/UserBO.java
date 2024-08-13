@@ -31,4 +31,8 @@ public class UserBO {
 				.email(email)
 				.build());
 	}
+	
+	public UserEntity getUserEntityById(int userId) {
+		return userRepository.findById(userId).orElse(null);
+	}
 }
