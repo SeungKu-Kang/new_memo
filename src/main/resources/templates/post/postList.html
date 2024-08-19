@@ -22,7 +22,7 @@
 				<td><a th:href="|/post/post-detail-view?postId=${post.id}|" th:text="${post.subject}" id="title"></a></td>
 				<td th:text="${session.loginId}"></td>
 				<td th:text="${#temporals.format(post.createdAt, 'yyyy년 M월 d일')}"></td>
-				<td></td>
+				<td></td> <!-- 댓글 수 들어갈 자리 -->
 			</tr>
 		</tbody>
 	</table>
@@ -37,11 +37,11 @@
 			$("#postCreateBtn").on('click', function() {
 				//alert("글 작성버튼");
 				let userId = "${session.userId}";
-				if (!userId) {
+				if (userId != null) {
 					location.href="post-create-view";					
 				} else {
 					alert("로그인을 한 후 이용가능합니다.");
-					location.href="user/sign-in-view";
+					location.href="http://localhost/user/sign-in-view";
 				}
 			});
 		});
