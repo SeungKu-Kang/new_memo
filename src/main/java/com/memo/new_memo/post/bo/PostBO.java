@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.memo.new_memo.common.FileManagerService;
+import com.memo.new_memo.post.domain.CardView;
 import com.memo.new_memo.post.domain.Post;
 import com.memo.new_memo.post.mapper.PostMapper;
 
@@ -47,7 +48,7 @@ public class PostBO {
 	
 	// input: 로그인된 사람의 userId
 		// output: List<Post>
-		public List<Post> getPostList(Integer prevId, Integer nextId) {
+		public List<CardView> getPostList(Integer prevId, Integer nextId) {
 			// 게시글 번호 10 9 8 | 7 6 5 | 4 3 2 | 1
 			// 만약 4 3 2 페이지에 있을 때
 			// 1) 다음: 2보다 작은 3개를 DESC정렬
@@ -59,7 +60,7 @@ public class PostBO {
 				standardId = prevId;
 				direction = "prev";
 				
-				List<Post> postList = postMapper.selectPostList(standardId, direction, POST_MAX_SIZE);
+				List<CardView> postList = postMapper.selectPostList(standardId, direction, POST_MAX_SIZE);
 				// [5 6 7] => [7 6 5]
 				Collections.reverse(postList); // 리스트 뒤집고 저장
 				
@@ -71,6 +72,9 @@ public class PostBO {
 			
 			// 3) 페이징 정보 X, 1) 다음
 			return postMapper.selectPostList(standardId, direction, POST_MAX_SIZE);
+			
+			
+			
 		}
 		
 	public boolean isPrevLastPage(int prevId) {

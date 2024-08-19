@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.memo.new_memo.post.domain.CardView;
 import com.memo.new_memo.post.domain.Post;
 
 @Mapper
@@ -39,7 +40,7 @@ public interface PostMapper {
 			@Param("content") String content, 
 			@Param("imagePath") String imagePath);
 	
-	public List<Post> selectPostList(
+	public List<CardView> selectPostList(
 			@Param("standardId") Integer standardId,
 			@Param("direction") String direction,
 			@Param("limit") int limit);

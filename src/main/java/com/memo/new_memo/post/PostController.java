@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.memo.new_memo.post.bo.PostBO;
+import com.memo.new_memo.post.domain.CardView;
 import com.memo.new_memo.post.domain.Post;
+import com.memo.new_memo.user.bo.UserBO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -20,6 +22,9 @@ public class PostController {
 
 	@Autowired
 	PostBO postBO;
+	
+	@Autowired
+	UserBO userBO;
 	
 	 @GetMapping("/post-list-view") 
 	 public String postListView(
@@ -31,13 +36,14 @@ public class PostController {
 		 // userId와 무관하게 모든 글 가져오기
 		 
 		 // DB 조회 - 글 목록 $ 이전, 다음 클릭
-		 List<Post> postList = postBO.getPostList(prevIdParam, nextIdParam);
+		 List<CardView> postList = postBO.getPostList(prevIdParam, nextIdParam);
 		 
 		 int prevId = 0;
 		 int nextId = 0;
 		 if (postList.isEmpty() == false) {
-			 prevId = postList.get(0).getId();
-			 nextId = postList.get(postList.size() - 1).getId();
+			 //prevId = postList.get(0).getId();
+			// nextId = postList.get(postList.size() - 1).getId();
+			 // 위 두줄 임시로 주석처리
 			 
 			 if (postBO.isPrevLastPage(prevId)) {
 				 prevId = 0;
@@ -68,6 +74,8 @@ public class PostController {
 		 // db 조회 - userId, postId
 		 //int userId = (int)session.getAttribute("userId");
 		 Post post = postBO.getPostByPostId(postId);
+		 
+		 
 		 
 		 // model에 담기
 		 model.addAttribute("post", post);

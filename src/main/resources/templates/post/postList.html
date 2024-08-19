@@ -17,16 +17,16 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="post : ${postList}">
-				<td th:text="${post.id}"></td>
-				<td><a th:href="|/post/post-detail-view?postId=${post.id}|" th:text="${post.subject}" id="title"></a></td>
-				<td th:text="${session.loginId}"></td>
-				<td th:text="${#temporals.format(post.createdAt, 'yyyy년 M월 d일')}"></td>
+			<tr th:each="cardView : ${postList}">
+				<td th:text="${cardView.post.id}"></td>
+				<td><a th:href="|/post/post-detail-view?postId=${cardView.post.id}|" th:text="${cardView.post.subject}" id="title"></a></td>
+				<td th:text="${cardView.user.loginId}"></td>
+				<td th:text="${#temporals.format(cardView.post.createdAt, 'yyyy년 M월 d일')}"></td>
 				<td></td> <!-- 댓글 수 들어갈 자리 -->
 			</tr>
 		</tbody>
 	</table>
-	<button class="btn btn-info" id="postCreateBtn">글 작성하기</button><br><br>
+	<button class="btn btn-secondary" id="postCreateBtn">글 작성하기</button><br><br>
 </div>
 </section>
 
@@ -38,10 +38,10 @@
 				//alert("글 작성버튼");
 				let userId = "${session.userId}";
 				if (userId != null) {
-					location.href="post-create-view";					
+					location.href="/post/post-create-view";					
 				} else {
 					alert("로그인을 한 후 이용가능합니다.");
-					location.href="http://localhost/user/sign-in-view";
+					location.href="/user/sign-in-view";
 				}
 			});
 		});

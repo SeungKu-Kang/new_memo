@@ -32,19 +32,19 @@
 		
 		<div class="card-comment-list">
 			<!-- 쓰여진 모든 댓글 영역 -->
-			<div class="card-comment m-1" th:each="commentView : ${cardView.commentList}">
-				<span class="font-weight-bold" th:text="${commentView.user.loginId}">댓글쓰니</span>
-				<span th:text="${commentView.comment.content}">댓글 내용임</span>
+			<div class="card-comment m-1">
+				<span class="font-weight-bold" >댓글쓰니</span>
+				<span >댓글 내용임</span>
 						
 				<!-- 댓글 삭제(자신의 댓글만 가능) -->
-				<a href="#" class="comment-del-btn" th:if="${session.userId == commentView.comment.userId}" th:data-comment-id="${commentView.comment.id}">
+				<a href="#" class="comment-del-btn">
 					<img src="https://www.iconninja.com/files/603/22/506/x-icon.png" width="10" height="10">
 				</a>
 			</div>
 			
 			
 			<!-- 댓글 작성 영역 (로그인되어 있는 경우에만 댓글 쓰는 기능이 활성화됨) -->
-			<div class="d-flex" th:if="${session.userId != null}">
+			<div class="d-flex pb-3" th:if="${session.userId != null}">
 				<input type="text" id="comment" class="form-control" placeholder="댓글을 입력하세요.">		
 				<a id="commentBtn" href="#">
 					<img src="/img/blue-arrow-icon.png" alt="댓글 업로드 버튼" width="38px">
@@ -133,6 +133,15 @@
 			
 			$("#postListBtn").on('click', function() {
 				location.href = "/post/post-list-view";
+			});
+			
+			// 댓글 작성
+			$("#commentBtn").on('click', function(e) {
+				e.preventDefault(); // 클릭시 위로 올라가는 것 방지
+				// alert("댓글 작성버튼");
+				
+				let postId = $(this).data("post-id");
+				alert(postId);
 			});
 		});
 	</script>

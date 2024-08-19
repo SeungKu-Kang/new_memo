@@ -77,15 +77,9 @@
 		)
 	</insert>
 	
-	<select id="selectPostList" parameterType="map" resultType="com.memo.new_memo.post.domain.Post">
+	<select id="selectPostList" parameterType="map" resultType="com.memo.new_memo.post.domain.CardView">
 		SELECT
-			`id`
-			,`userId`
-			,`subject`
-			,`content`
-			,`imagePath`
-			,`createdAt`
-			,`updatedAt`
+			*
 		FROM
 			`post`
 		<!-- WHERE

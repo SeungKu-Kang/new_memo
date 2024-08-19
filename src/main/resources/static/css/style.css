@@ -1,8 +1,5 @@
 @charset "UTF-8";
 
-#wrap {
-	background-color: #999;
-}
 header {
     background-color:#91cf4b;
     padding-top:10px;
@@ -20,9 +17,6 @@ footer {
 	
 }
 
-section {
-	background-color: #999;
-}
 <!-- 회원가입, 로그인 파트-->
 #signUpBox, #signInBox {
 	background-color: white;
