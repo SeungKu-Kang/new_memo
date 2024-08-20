@@ -31,6 +31,8 @@ public interface PostMapper {
 			@Param("prevIdParam") int prevIdParam,
 			@Param("nextIdParam") int nextIdParam);
 	
+	public List<CardView> selectPostList(); 
+	
 	public int selectPostIdAsSort(
 			@Param("sort") String sort);
 	

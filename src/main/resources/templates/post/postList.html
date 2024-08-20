@@ -38,7 +38,7 @@
 				//alert("글 작성버튼");
 				let userId = "${session.userId}";
 				if (userId != null) {
-					location.href="/post/post-create-view";					
+					location.href="/post/post-create-view";	// 상대경로			
 				} else {
 					alert("로그인을 한 후 이용가능합니다.");
 					location.href="/user/sign-in-view";
