@@ -33,6 +33,6 @@ public class UserBO {
 	}
 	
 	public UserEntity getUserEntityById(int userId) {
-		return userRepository.findById(userId).orElse(null);
+		return userRepository.findById(userId);
 	}
 }

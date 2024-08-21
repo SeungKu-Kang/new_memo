@@ -17,12 +17,12 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="cardView : ${postList}">
+			<tr th:each="cardView : ${cardViewList}">
 				<td th:text="${cardView.post.id}"></td>
 				<td><a th:href="|/post/post-detail-view?postId=${cardView.post.id}|" th:text="${cardView.post.subject}" id="title"></a></td>
 				<td th:text="${cardView.user.loginId}"></td>
 				<td th:text="${#temporals.format(cardView.post.createdAt, 'yyyy년 M월 d일')}"></td>
-				<td></td> <!-- 댓글 수 들어갈 자리 -->
+				<td th:text="${cardView.commentCount}"></td> <!-- 댓글 수 들어갈 자리 -->
 			</tr>
 		</tbody>
 	</table>

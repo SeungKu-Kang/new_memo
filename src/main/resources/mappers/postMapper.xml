@@ -62,11 +62,11 @@
 		)
 	</insert>
 	
-	<select id="selectPostList" parameterType="map" resultType="com.memo.new_memo.post.domain.CardView">
+	<select id="selectPostList" parameterType="map" resultType="com.memo.new_memo.post.domain.Post">
 		SELECT
 			*
 		FROM
-			`post`,`user`
+			`post`
 		<!-- WHERE
 			<if test="direction == 'next'">
 			<![CDATA[

@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.memo.new_memo.post.domain.CardView;
 import com.memo.new_memo.post.domain.Post;
 
 @Mapper
@@ -31,7 +30,7 @@ public interface PostMapper {
 			@Param("prevIdParam") int prevIdParam,
 			@Param("nextIdParam") int nextIdParam);
 	
-	public List<CardView> selectPostList(); 
+	public List<Post> selectPostList(); 
 	
 	public int selectPostIdAsSort(
 			@Param("sort") String sort);
@@ -42,7 +41,7 @@ public interface PostMapper {
 			@Param("content") String content, 
 			@Param("imagePath") String imagePath);
 	
-	public List<CardView> selectPostList(
+	public List<Post> selectPostList(
 			@Param("standardId") Integer standardId,
 			@Param("direction") String direction,
 			@Param("limit") int limit);

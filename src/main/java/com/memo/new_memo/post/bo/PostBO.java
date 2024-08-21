@@ -1,16 +1,20 @@
 package com.memo.new_memo.post.bo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.memo.new_memo.comment.bo.CommentBO;
+import com.memo.new_memo.comment.domain.CommentView;
 import com.memo.new_memo.common.FileManagerService;
 import com.memo.new_memo.post.domain.CardView;
 import com.memo.new_memo.post.domain.Post;
 import com.memo.new_memo.post.mapper.PostMapper;
+import com.memo.new_memo.user.bo.UserBO;
+import com.memo.new_memo.user.entity.UserEntity;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,10 +26,16 @@ public class PostBO {
 	PostMapper postMapper;
 	
 	@Autowired
+	UserBO userBO;
+	
+	@Autowired
+	CommentBO commentBO;
+	
+	@Autowired
 	FileManagerService fileManagerService;
 	
 	// 페이징 정보 필드(limit)
-	private static final int POST_MAX_SIZE = 3;
+	//private static final int POST_MAX_SIZE = 3;
 	
 	// 글 단건 가져오기
 	// input : userId, postId
@@ -74,14 +84,33 @@ public class PostBO {
 			return postMapper.selectPostList(standardId, direction, POST_MAX_SIZE);
 		*/
 	
-	// 작성자 loginId 꺼내기 위한 method 0820
+	// 작성자 loginId 꺼내기 위한 method 0821
 	// input : X
-	// output: List<CardView>
-	public List<CardView> getPostList() {
+	// output: List<Post>
+	public List<CardView> generateCardViewList(Integer userId) {
+		List<CardView> cardViewList = new ArrayList<>();
+		
+		List<Post> postList = postMapper.selectPostList();
 		for (Post post : postList) {
+			CardView card = new CardView();
 			
+			// post
+			card.setPost(post);
+			
+			// user
+			UserEntity user = userBO.getUserEntityById(post.getUserId());
+			card.setUser(user);
+			
+			// comment
+			List<CommentView> commentViewList = commentBO.generateCommentViewListByPostId(post.getId());
+			card.setCommentList(commentViewList);
+			
+			int commentCount = commentBO.getCommentCountByPostId(post.getId());
+			card.setCommentCount(commentCount);
+			
+			cardViewList.add(card);
 		}
-		return postMapper.selectPostList();
+		return cardViewList;
 	}
 		
 	public boolean isPrevLastPage(int prevId) {

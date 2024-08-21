@@ -32,32 +32,15 @@ public class PostController {
 			 @RequestParam(value = "nextId", required = false) Integer nextIdParam,
 			 HttpSession session, Model model) {
 		 
-		 // 로그인 여부 확인 -> 상관없음
-		 // userId와 무관하게 모든 글 가져오기
+		 
 		 
 		 // DB 조회 - 글 목록 $ 이전, 다음 클릭
-		 List<CardView> postList = postBO.getPostList(prevIdParam, nextIdParam);
-		 
-		 int prevId = 0;
-		 int nextId = 0;
-		 if (postList.isEmpty() == false) {
-			 //prevId = postList.get(0).getId();
-			// nextId = postList.get(postList.size() - 1).getId();
-			 // 위 두줄 임시로 주석처리
-			 
-			 if (postBO.isPrevLastPage(prevId)) {
-				 prevId = 0;
-			 }
-			 
-			 if (postBO.isNextLastPage(nextId)) {
-				 nextId = 0;
-			 }
-		 }
+		 Integer userId = (Integer)session.getAttribute("userId");
+		 List<CardView> cardViewList = postBO.generateCardViewList(userId);
 		 
 		 // 모델에 담기
-		 model.addAttribute("prevId",prevId);
-		 model.addAttribute("nextId",nextId);
-		 model.addAttribute("postList", postList);
+		 
+		 model.addAttribute("cardViewList", cardViewList);
 		 
 		 return "post/postList";
 	 }
