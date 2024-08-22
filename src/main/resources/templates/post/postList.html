@@ -26,7 +26,13 @@
 			</tr>
 		</tbody>
 	</table>
-	<button class="btn btn-secondary" id="postCreateBtn">글 작성하기</button><br><br>
+	<div class="d-flex">
+		<button class="btn btn-secondary" id="postCreateBtn">글 작성하기</button><br><br>
+		<div class="text-center">
+			<a th:if="${prevId != 0}" th:href="|/post/post-list-view?prevId=${prevId}|" class="mr-5">&lt;&lt; 이전</a>
+			<a th:if="${nextId != 0}" th:href="'/post/post-list-view?nextId=' + ${nextId}">다음 &gt;&gt;</a>
+		</div>
+	</div>
 </div>
 </section>
 
@@ -36,12 +42,13 @@
 			// 글 작성하기 버튼
 			$("#postCreateBtn").on('click', function() {
 				//alert("글 작성버튼");
-				let userId = "${session.userId}";
-				if (userId != null) {
-					location.href="/post/post-create-view";	// 상대경로			
-				} else {
+				let userId = "[[${session.userId}]]";
+				if (!userId) {
 					alert("로그인을 한 후 이용가능합니다.");
 					location.href="/user/sign-in-view";
+								
+				} else {
+					location.href="/post/post-create-view";	// 상대경로
 				}
 			});
 		});

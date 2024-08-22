@@ -64,25 +64,32 @@
 	
 	<select id="selectPostList" parameterType="map" resultType="com.memo.new_memo.post.domain.Post">
 		SELECT
-			*
+			`id`
+			,`userId`
+			,`subject`
+			,`content`
+			,`imagePath`
+			,`createdAt`
+			,`updatedAt`
 		FROM
 			`post`
-		<!-- WHERE
 			<if test="direction == 'next'">
 			<![CDATA[
+			WHERE
 			`id` < #{standardId}
 			]]>
 			ORDER BY `id` DESC
 			</if>
 			<if test="direction == 'prev'">
 			<![CDATA[
-			AND `id` > #{standardId}
+			WHERE
+			`id` > #{standardId}
 			]]>	
 			</if>
 			<if test="direction == null">
 			ORDER BY `id` DESC
 			</if> 
-		LIMIT ${limit}-->
+		LIMIT 3
 	</select>
 	
 	<update id="updatePostByPostId" parameterType="map">
