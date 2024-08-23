@@ -76,9 +76,44 @@ footer {
 }
 
 /* <post 부분 css> 기본적인 틀로 container는 고정임 */
+
+.loginSection {
+	width: 500px;
+}
+
+#smallSignInBox {
+	width:350px;
+	height:230px;
+	margin-left:70px;
+	margin-top:40px;
+}
+
+#smallSignIn {
+	margin-left:40px;
+}
+
+.buttons {
+	margin-left:30px;
+	
+}
+#smallSignInBtn {
+	width:120px;
+}
+#smallSignUpBtn {
+	width:120px;
+	margin-left:30px;
+}
+
+
+
+
+
+
+
 .container {
 	width: 900px;
 	background-color : #999;
+	margin:0;
 }
 
 .btn:active, .btn:focus {

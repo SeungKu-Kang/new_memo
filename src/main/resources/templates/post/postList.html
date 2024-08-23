@@ -5,6 +5,31 @@
       layout:decorate="~{layout/defaultLayout}">
 <section layout:fragment="content">
 
+<div class="d-flex">
+
+
+<div class="loginSection">
+	<div id="smallSignInBox" class="border border-success">
+		<!-- 비로그인 상태이면  -->
+		<form th:if="${session.userId == null}" id="loginForm" action="/user/sign-in" method="post"> 
+			<div id="smallSignIn" class="my-5 w-100">
+				<div class="d-flex">
+					아이디 <input id="loginId" type="text" name="loginId" class="loginIdBox rounded-top ml-4">
+				</div>
+				<div class="passwordBox d-flex">
+					비밀번호 <input id="password" type="password" name="password" class="rounded-bottom ml-2">
+				</div>		
+			</div>
+			<div class="buttons d-flex w-100">
+				<button type="submit" id="smallSignInBtn" class="btn btn-success font-weight-bold">로 그 인</button>
+				<button type="submit" id="smallSignUpBtn" class="btn btn-info font-weight-bold">회원가입</button>
+			</div>
+		</form>
+		<div id="myPage">
+			
+		</div>
+	</div>
+</div>
 <div class="container">
 	<table class="table table-hover">
 		<thead>
@@ -33,6 +58,8 @@
 			<a th:if="${nextId != 0}" th:href="'/post/post-list-view?nextId=' + ${nextId}">다음 &gt;&gt;</a>
 		</div>
 	</div>
+</div>
+
 </div>
 </section>
 
