@@ -28,4 +28,9 @@ public class UserController {
 		
 		return "redirect:/user/sign-in-view";
 	}
+	
+	@GetMapping("/my-page-view")
+	public String myPageView() {
+		return "user/myPage";
+	}
 }

@@ -104,7 +104,11 @@ footer {
 	margin-left:30px;
 }
 
-
+#myPageBox {
+	width: 240px;
+	background-color:#91cf4b;
+	margin-top:50px;
+}
 
 
 

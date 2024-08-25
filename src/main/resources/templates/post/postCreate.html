@@ -4,25 +4,52 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/defaultLayout}">
 <section layout:fragment="content">
-	<div class="container">
-		<h1 class="font-weight-bold pt-3">MEMO 작성하기</h1>
-		
-		<input type="text" id="subject" class="form-control" placeholder="제목">
-		<textarea rows="13" id="content" class="form-control" placeholder="내용을 입력하세요."></textarea><br>
-		
-		<div class="text-right my-3">
-			<input type="file" id="file" accept=".jpg, .png, .gif">
+
+<div class="d-flex">
+
+<div class="loginSection">
+	<div id="smallSignInBox" class="border border-success">
+		<!-- 비로그인 상태이면  -->
+		<form th:if="${session.userId == null}" id="loginForm" action="/user/sign-in" method="post"> 
+			<div id="smallSignIn" class="my-5 w-100">
+				<div class="d-flex">
+					아이디 <input id="loginId" type="text" name="loginId" class="loginIdBox rounded-top ml-4">
+				</div>
+				<div class="passwordBox d-flex">
+					비밀번호 <input id="password" type="password" name="password" class="rounded-bottom ml-2">
+				</div>		
+			</div>
+			<div class="buttons d-flex w-100">
+				<button type="submit" id="smallSignInBtn" class="btn btn-success font-weight-bold">로 그 인</button>
+				<button type="submit" id="smallSignUpBtn" class="btn btn-info font-weight-bold">회원가입</button>
+			</div>
+		</form>
+		<div th:if="${session.userId != null}" id="myPage">
+			<h5 id="myPageBox" class="rounded font-weight-bold ml-5" th:text="${session.userName} + '님 환영합니다!'"></h5>
 		</div>
-		<div class="d-flex justify-content-between">
-			<div>
-				<button id="postListBtn" class="btn btn-secondary">글 목록</button>
-			</div>
-			<div>
-				<button id="clearBtn" class="btn btn-secondary">본문 지우기</button>
-				<button id="saveBtn" class="btn btn-secondary">저장하기</button>
-			</div>
-		</div><br>
 	</div>
+</div>
+
+<div class="container">
+	<h1 class="font-weight-bold pt-3">MEMO 작성하기</h1>
+		
+	<input type="text" id="subject" class="form-control" placeholder="제목">
+	<textarea rows="13" id="content" class="form-control" placeholder="내용을 입력하세요."></textarea><br>
+		
+	<div class="text-right my-3">
+		<input type="file" id="file" accept=".jpg, .png, .gif">
+	</div>
+	<div class="d-flex justify-content-between">
+		<div>
+			<button id="postListBtn" class="btn btn-secondary">글 목록</button>
+		</div>
+		<div>
+			<button id="clearBtn" class="btn btn-secondary">본문 지우기</button>
+			<button id="saveBtn" class="btn btn-secondary">저장하기</button>
+		</div>
+	</div><br>
+</div>
+</div>
 </section>
 
 <th:block layout:fragment="script">
