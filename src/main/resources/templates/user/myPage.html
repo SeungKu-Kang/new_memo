@@ -5,17 +5,89 @@
       layout:decorate="~{layout/defaultLayout}">
       
 <section layout:fragment="content" class="content">
+<div class="d-flex">
+	<div class="loginSection">
+		<div id="smallSignInBox" class="border border-success">
+			<!-- 비로그인 상태이면  -->
+			<form th:if="${session.userId == null}" id="loginForm" action="/user/sign-in" method="post"> 
+				<div id="smallSignIn" class="my-5 w-100">
+					<div class="d-flex">
+						아이디 <input id="loginId" type="text" name="loginId" class="loginIdBox rounded-top ml-4">
+					</div>
+					<div class="passwordBox d-flex">
+						비밀번호 <input id="password" type="password" name="password" class="rounded-bottom ml-2">
+					</div>		
+				</div>
+				<div class="buttons d-flex w-100">
+					<button type="submit" id="smallSignInBtn" class="btn btn-success font-weight-bold">로 그 인</button>
+					<button type="submit" id="smallSignUpBtn" class="btn btn-info font-weight-bold">회원가입</button>
+				</div>
+			</form>
+			<div th:if="${session.userId != null}" id="myPage">
+				<h5 id="myPageBox" class="rounded font-weight-bold ml-5" th:text="${session.userName} + '님 환영합니다!'"></h5>
+			</div>
+			<a href="/user/my-page-view"><button id="myPageBtn" th:if="${session.userId != null}" class="btn btn-info">마이페이지</button></a>
+		</div>
+	</div>
 	<div class="container">
-		<div class="rounded border border-success">
-			<table class="table">
+		<div class="rounded">
+			<table class="table table-bordered">
 				<tbody>
 					<tr>
-						<th></th>
-						<td></td>
+						<th class="align-middle">비밀번호 확인</th>
+						<td>
+							<div class="d-flex">
+								<div class="w-100">
+									<input type="text" id="checkPassword" class="form-control">
+									<div id="passwordFilled" class="small text-danger d-none">*필수항목입니다.</div>
+									<div id="passwordCheck" class="small text-danger d-none">*비밀번호가 정확하지 않습니다.</div>
+									<div id="passwordConfirmed" class="small text-success d-none">*확인되었습니다.</div>
+								</div>
+								<button id="firstConfirmBtn" class="btn btn-info">확인</button>
+							</div>
+						</td>							
+					</tr>
+					<tr class="myPageInfo d-none align-middle">
+						<th>아이디</th>
+						<td><input type="text" id="idBox" class="form-control"></td>
+					</tr>
+					<tr class="myPageInfo d-none align-middle">
+						<th>새 비밀번호</th>
+						<td><input type="text" id="passwordBox" class="form-control"></td>
+					</tr>
+					<tr class="myPageInfo d-none align-middle">
+						<th>비밀번호 확인</th>
+						<td><input type="text" id="checkPasswordBox" class="form-control"></td>
+					</tr>
+					<tr class="myPageInfo d-none align-middle">
+						<th>이름</th>
+						<td><input type="text" id="nameBox" class="form-control"></td>
+					</tr>
+					<tr class="myPageInfo d-none align-middle">
+						<th>이메일</th>
+						<td><input type="text" id="emailBox" class="form-control"></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
+</div>
 </section>
+<th:block layout:fragment="script">
+	<script>
+		$(document).ready(function() {
+			$("#firstConfirmBtn").on('click', function() {
+				
+				// case1) 비밀번호를 아무것도 입력하지 않음
+				
+				// caes2) 잘못된 비밀번호를 적음
+				
+				// case3) 정확한 비밀번호를 적음
+				if ($("#passwordFilled").hasClass("d-none") && $("#passwordCheck").hasClass("d-none")) {
+					$(".myPageInfo").removeClass("d-none");
+				}
+			});
+		});
+	</script>
+</th:block>
 </html>

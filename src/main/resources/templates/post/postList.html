@@ -28,7 +28,7 @@
 		<div th:if="${session.userId != null}" id="myPage">
 			<h5 id="myPageBox" class="rounded font-weight-bold ml-5" th:text="${session.userName} + '님 환영합니다!'"></h5>
 		</div>
-		<a href="user/my-page-view"><button class="btn btn-info">마이페이지</button></a>
+		<a href="/user/my-page-view"><button id="myPageBtn" th:if="${session.userId != null}" class="btn btn-info">마이페이지</button></a>
 	</div>
 </div>
 <div class="container">
@@ -105,12 +105,16 @@
 				$.post(url, params)
 				.done(function(data) {
 					if (data.result == "성공") {
-						location.href = "/post/post-list-view";
-						//location.reload();
+						//location.href = "/post/post-list-view";
+						location.reload();
 					} else {
 						alert(data.error_message);
 					}
 				});
+			});
+			
+			$("#myPageBtn").on('click', function() {
+				location.href="/user/sign-in-view";
 			});
 		});
 	</script>

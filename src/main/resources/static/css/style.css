@@ -104,13 +104,24 @@ footer {
 	margin-left:30px;
 }
 
+#myPageBtn {
+	margin-top:20px;
+	margin-left:47px;
+}
+
 #myPageBox {
 	width: 240px;
 	background-color:#91cf4b;
 	margin-top:50px;
 }
 
-
+#firstConfirmBtn {
+	width: 70px;
+	height:40px;
+	margin-left:20px;
+	
+}
+	
 
 
 
