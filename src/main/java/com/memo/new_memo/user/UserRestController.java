@@ -98,4 +98,25 @@ public class UserRestController {
 		}
 		return result;
 	}
+	
+	@PostMapping("update")
+	public Map<String, Object> update(
+			@RequestParam("id") String id,
+			@RequestParam("password") String password,
+			@RequestParam("name") String name,
+			@RequestParam("email") String email,
+			HttpSession session) {
+		
+		int userId = (int)session.getAttribute("userId");
+		String userLoginId = (String)session.getAttribute("userLoginId");
+		
+		// db update
+		userBO.updateUserByUserId(userId, userLoginId,password, name, email);
+		
+		// 응답값
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", 200);
+		result.put("result", "성공");
+		return result;
+	}
 }

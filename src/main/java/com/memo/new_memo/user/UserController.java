@@ -1,6 +1,7 @@
 package com.memo.new_memo.user;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -30,7 +31,12 @@ public class UserController {
 	}
 	
 	@GetMapping("/my-page-view")
-	public String myPageView() {
+	public String myPageView(
+			HttpSession  session,
+			Model model) {
+		Integer password = (Integer)session.getAttribute("password");
+		model.addAttribute("password", password);
+		
 		return "user/myPage";
 	}
 }

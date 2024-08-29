@@ -35,4 +35,9 @@ public class UserBO {
 	public UserEntity getUserEntityById(int userId) {
 		return userRepository.findById(userId);
 	}
+	
+	public void updateUserByUserId(int userId, String userLoginId, 
+			String password, String name, String email) {
+		//return userRepository.selectUserByuserId(userId);
+	}
 }

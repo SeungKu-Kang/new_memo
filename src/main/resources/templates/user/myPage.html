@@ -38,8 +38,8 @@
 						<td>
 							<div class="d-flex">
 								<div class="w-100">
-									<input type="text" id="checkPassword" class="form-control">
-									<div id="passwordFilled" class="small text-danger d-none">*필수항목입니다.</div>
+									<input type="password" id="checkPassword" class="form-control">
+									<div id="passwordFilled" class="small text-danger">*필수항목입니다.</div>
 									<div id="passwordCheck" class="small text-danger d-none">*비밀번호가 정확하지 않습니다.</div>
 									<div id="passwordConfirmed" class="small text-success d-none">*확인되었습니다.</div>
 								</div>
@@ -53,11 +53,11 @@
 					</tr>
 					<tr class="myPageInfo d-none align-middle">
 						<th>새 비밀번호</th>
-						<td><input type="text" id="passwordBox" class="form-control"></td>
+						<td><input type="password" id="passwordBox1" class="form-control"></td>
 					</tr>
 					<tr class="myPageInfo d-none align-middle">
 						<th>비밀번호 확인</th>
-						<td><input type="text" id="checkPasswordBox" class="form-control"></td>
+						<td><input type="password" id="checkPasswordBox" class="form-control"></td>
 					</tr>
 					<tr class="myPageInfo d-none align-middle">
 						<th>이름</th>
@@ -69,6 +69,9 @@
 					</tr>
 				</tbody>
 			</table>
+			<div class="d-flex justify-content-end mb-3">
+				<button id="modifyBtn" class="btn btn-success">수정하기</button>			
+			</div>
 		</div>
 	</div>
 </div>
@@ -77,15 +80,65 @@
 	<script>
 		$(document).ready(function() {
 			$("#firstConfirmBtn").on('click', function() {
+				// alert("인증완료");
+				let password = $("#checkPassword").val().trim(); // 입력받은 비밀번호
+				console.log(password);
+				let realPassword = "[[${session.password}]]"; // 실제 비밀번호
+				console.log(realPassword);
+				if (password == null) { // case1) 비밀번호를 아무것도 입력하지 않음
+					$("#passwordFilled").addClass("d-none");
+					return false;
+				} 	
 				
-				// case1) 비밀번호를 아무것도 입력하지 않음
+				if (password != "" && password != realPassword) { // caes2) 무언가 적었지만 잘못된 비밀번호를 적음
+					$("#passwordFilled").addClass("d-none");
+					$("#passwordCheck").removeClass("d-none");
+					return false;
+				}
 				
-				// caes2) 잘못된 비밀번호를 적음
-				
-				// case3) 정확한 비밀번호를 적음
-				if ($("#passwordFilled").hasClass("d-none") && $("#passwordCheck").hasClass("d-none")) {
+				if (password == realPassword) { // case3) 정확한 비밀번호를 적음
+					$("#passwordFilled").addClass("d-none");
+					$("#passwordCheck").addClass("d-none");
+					$("#passwordConfirmed").removeClass("d-none");
 					$(".myPageInfo").removeClass("d-none");
 				}
+					
+			});
+			
+			$("#modifyBtn").on('click', function() {
+				let id = $("#idBox").val().trim();
+				let name = $("#nameBox").val().trim();
+				let email = $("#emailBox").val().trim();
+				// alert("수정하기");
+				alert("수정된 개인정보입니다. \n아이디: " + id + "\n이름: " + name + "\n이메일: " + email);
+				
+				// ajax update
+				// form 
+				let formData = new FormData();
+				formData.append("id", id);
+				formData.append("name", name);
+				formData.append("email", email);
+				
+				// AJAX
+				$.ajax({
+					// request
+					type:"put"
+					, url:"/user/update"
+					, data:formData
+					
+					// response
+					, success:function(data) {
+						if (data.code == 200) {
+							alert("개인정보 수정완료.");
+							location.href="/post/post-list-view";
+						} else {
+							alert(data.error_message);
+						}
+					}
+					, error:function(e) {
+						alert("개인정보를 수정하는데 실패했습니다.");
+					}
+				});
 			});
 		});
 	</script>
