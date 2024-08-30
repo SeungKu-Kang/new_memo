@@ -13,5 +13,5 @@ public interface UserRepository extends JpaRepository<UserEntity,Integer>{
 	
 	public UserEntity findById(int userId);
 	
-	
+	public void selectUserByuserId(int userId);
 }

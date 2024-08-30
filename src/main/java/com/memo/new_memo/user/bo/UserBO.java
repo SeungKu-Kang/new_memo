@@ -38,6 +38,6 @@ public class UserBO {
 	
 	public void updateUserByUserId(int userId, String userLoginId, 
 			String password, String name, String email) {
-		//return userRepository.selectUserByuserId(userId);
+		return userRepository.selectUserByuserId(userId);
 	}
 }
