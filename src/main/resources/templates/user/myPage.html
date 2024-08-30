@@ -39,7 +39,7 @@
 							<div class="d-flex">
 								<div class="w-100">
 									<input type="password" id="checkPassword" class="form-control">
-									<div id="passwordFilled" class="small text-danger">*필수항목입니다.</div>
+									<div id="passwordFilled" class="small text-danger d-done">*필수항목입니다.</div>
 									<div id="passwordCheck" class="small text-danger d-none">*비밀번호가 정확하지 않습니다.</div>
 									<div id="passwordConfirmed" class="small text-success d-none">*확인되었습니다.</div>
 								</div>
@@ -82,26 +82,35 @@
 			$("#firstConfirmBtn").on('click', function() {
 				// alert("인증완료");
 				let password = $("#checkPassword").val().trim(); // 입력받은 비밀번호
-				console.log(password);
-				let realPassword = "[[${session.password}]]"; // 실제 비밀번호
-				console.log(realPassword);
-				if (password == null) { // case1) 비밀번호를 아무것도 입력하지 않음
-					$("#passwordFilled").addClass("d-none");
-					return false;
-				} 	
 				
-				if (password != "" && password != realPassword) { // caes2) 무언가 적었지만 잘못된 비밀번호를 적음
-					$("#passwordFilled").addClass("d-none");
-					$("#passwordCheck").removeClass("d-none");
+				if (password == "") { // case1) 비밀번호를 아무것도 입력하지 않음
+					$("#passwordFilled").removeClass("d-none");
 					return false;
 				}
 				
-				if (password == realPassword) { // case3) 정확한 비밀번호를 적음
-					$("#passwordFilled").addClass("d-none");
-					$("#passwordCheck").addClass("d-none");
-					$("#passwordConfirmed").removeClass("d-none");
-					$(".myPageInfo").removeClass("d-none");
-				}
+				// AJAX
+				$.ajax({
+					// request
+					url:"/user/check-password"
+					, data:{"password":password}
+				
+					// response
+					, success:function(data) {
+						if (data.check_password) {
+							$("#passwordFilled").addClass("d-none");
+							$("#passwordCheck").addClass("d-none");
+							$("#passwordConfirmed").removeClass("d-none");
+							$(".myPageInfo").removeClass("d-none");
+						} else {
+							$("#passwordFilled").addClass("d-none");
+							$("#passwordCheck").removeClass("d-none");
+						}
+					}
+					
+					, error:function(error) {
+						alert("비밀번호 확인에 실패했습니다.");
+					}
+				});
 					
 			});
 			

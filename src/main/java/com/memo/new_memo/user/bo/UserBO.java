@@ -36,8 +36,27 @@ public class UserBO {
 		return userRepository.findById(userId);
 	}
 	
-	public void updateUserByUserId(int userId, String userLoginId, 
-			String password, String name, String email) {
-		return userRepository.selectUserByuserId(userId);
+	public boolean checkPassword(int userId, String getPassword, String realPassword) {
+		if (getPassword.equals(realPassword)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
+
+	public UserEntity updateUserByUserId(int userId, String loginId, String password, String name, String email) {
+		UserEntity user = userRepository.findById(userId);
+		user = user.toBuilder()
+				.loginId(loginId)
+				.password(password)
+				.name(name)
+				.email(email)
+				.build();
+		return userRepository.save(user);
+	}
+	/*
+	 * public UserEntity updateUserByUserId(int userId, String userLoginId, String
+	 * password, String name, String email) { return
+	 * userRepository.updateUserByuserId(userId); }
+	 */
 }

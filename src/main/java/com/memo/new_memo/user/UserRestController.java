@@ -119,4 +119,28 @@ public class UserRestController {
 		result.put("result", "성공");
 		return result;
 	}
+	
+	@PostMapping("/check-password")
+	public Map<String, Object> checkPassword(
+			@RequestParam("userId") int userId,
+			@RequestParam("checkPassword") String checkPassword,
+			HttpSession session) {
+		
+		// password hashing
+		String getPassword = (String)session.getAttribute("password"); // password를 변수에 저장하면 안되긴 함
+		String hashedCheckedPassword = EncryptUtils.md5(checkPassword); // 입력받은 비밀번호
+		String hashedRealPassword = EncryptUtils.md5(getPassword);
+		
+		boolean passwordValidation = userBO.checkPassword(userId, hashedCheckedPassword, hashedRealPassword);
+		
+		// 응답값
+		Map<String,Object> result = new HashMap<>();
+		result.put("code", 200);
+		if (passwordValidation) {
+			result.put("check_password", true);
+		} else {
+			result.put("check_password", false);
+		}
+		return result;
+	}
 }
