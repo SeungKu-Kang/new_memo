@@ -40,7 +40,9 @@ public class PostController {
 		 Integer userId = (Integer)session.getAttribute("userId");
 		 List<CardView> cardViewList = postBO.generateCardViewList(userId);
 		 
-		 // DB 조회 - 글 목록// 이전, 다음 클릭
+		 // DB 조회 - 글 목록 
+		 // 이전, 다음 클릭
+		 
 		 
 		 List<Post> postList = postBO.getPostList(prevIdParam, nextIdParam);
 		 int prevId = 0;

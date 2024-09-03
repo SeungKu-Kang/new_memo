@@ -25,12 +25,12 @@
 			`id` = #{postId}
 	</select>
 	
-<!-- 	<select id="selectPostList" resultType="map">
+	<!-- <select id="selectPostList" resultType="map">
 		SELECT
 			*
 		FROM
 			`post`
-	</select> -->
+	</select>  -->
 	
 	<select id="selectPostIdAsSort" parameterType="map" resultType="int">
 		SELECT
@@ -41,7 +41,7 @@
 		LIMIT 1
 	</select>
 	
-	<insert id="insertPost" parameterType="map">
+	 <insert id="insertPost" parameterType="map">
 		INSERT INTO `post`
 		(
 			`userId`
@@ -89,8 +89,8 @@
 			<if test="direction == null">
 			ORDER BY `id` DESC
 			</if> 
-		LIMIT 3
-	</select>
+		
+	</select> 
 	
 	<update id="updatePostByPostId" parameterType="map">
 		UPDATE `post`
