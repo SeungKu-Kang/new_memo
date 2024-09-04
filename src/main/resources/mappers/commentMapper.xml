@@ -60,7 +60,7 @@
 		SELECT
 			COUNT(1)
 		FROM
-			`COMMENT`
+			`comment`
 		WHERE
 			`postId`= #{postId}
 	</select>
