@@ -17,7 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 public class FileManagerService {
 	
 	// 실제 업로드가 된 이미지가 저장될 서버의 경로
-	public static final String FILE_UPLOAD_PATH = "D:\\강승구\\new_memo_project\\workspace\\images/"; // 학원 컴퓨터
+	// public static final String FILE_UPLOAD_PATH = "D:\\강승구\\new_memo_project\\workspace\\images/"; // 학원 컴퓨터
+	public static final String FILE_UPLOAD_PATH = "/home/ec2-user/images/"; // aws
 	//public static final String FILE_UPLOAD_PATH = "C:\\Users\\ktc user\\프로그래밍\\자바\\Git_Home(new_memo_project_1)\\new_memo_workspace_1\\images/"; // 집 컴퓨터 , 경로 복붙후 마지막에 "/" 추가하기
 	
 	// input : MultipartFile, userLoginId
